@@ -1,0 +1,1 @@
+./node_modules/.bin/sequelize model:create --name transaction --attributes receiver:string,sender:string,amount:string,agent:INTEGER,referenceid:string,requesttransactionid:string,transactionid:string

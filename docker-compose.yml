@@ -1,0 +1,47 @@
+version: '3.0'
+services:
+  # Node application to manage user related auth and profiles.
+  kibina:
+    build:
+      context: .
+      args:
+        - PORT=${auth_port}
+    ports: 
+      - ${auth_port}:${auth_port}
+    restart: always
+    environment: 
+      - auth_port=${auth_port}
+      - NODE_ENV=production
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - DB_DIALECT=postgres
+      - DB_HOST=db
+    depends_on:
+      - db
+  # react:
+  #   build:
+  #     context: ../frontend
+  #     dockerfile: reactfile
+  #   restart: always
+  #   ports: 
+  #     - 80:5000
+
+  #Postress database for the entire application 
+  #might need to be replicated to an other standalone Postgres server in the future.
+  db:
+    image: postgres
+    restart: always
+    volumes: 
+       - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5429
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+
+
+
+
+    

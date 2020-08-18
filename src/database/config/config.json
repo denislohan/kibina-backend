@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "moz-pay_dev",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "moz-pay_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

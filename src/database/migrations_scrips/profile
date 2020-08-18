@@ -1,0 +1,1 @@
+./node_modules/.bin/sequelize model:create --name profile --attributes username:string,password:string,firstName:string,familyName:string,balance:INTEGER

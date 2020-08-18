@@ -1,0 +1,1 @@
+./node_modules/.bin/sequelize model:create --name file_permissions --attributes tableName:string,tableAccessGroups:array:INTEGER,tableAccessMode:string,recordAccessGroups:array:INTEGER,recordAccessMode:string

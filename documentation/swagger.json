@@ -1,0 +1,14 @@
+{
+    "swaggerDefinition": {
+        "info":{
+            "title": "Blueprint API",
+            "description": "A blueprint documentation to the all microservices",
+            "contact": {
+                "email": "api@easyhealth.com"
+            },
+            "servers":["http://localhost:3000/api"]
+        }
+    },
+    "apis":["./src/routes/*.js"]
+}
+   
