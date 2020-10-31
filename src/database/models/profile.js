@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     familyName: DataTypes.STRING,
     balance: DataTypes.INTEGER,
+    profit: DataTypes.INTEGER,
     role:DataTypes.INTEGER
   }, {});
   profile.associate = function(models) {

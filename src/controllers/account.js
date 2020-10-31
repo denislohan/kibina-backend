@@ -8,13 +8,17 @@ class Payment{
     constructor(){
             this.retrieveBal = this.retrieveBal.bind(this)
             this.profile = this.profile.bind(this)
-
+            this.topUp = this.topUp.bind(this)
+        
     }
     async profile(req,res){
        
         try{
             let id,companyBal,transactions =[],profiles = []
             const user = req.params
+            await req.app.get('redis').get('balance', (err, balance)=>{
+                this.devBalance = balance
+            })
 
             if(user.id) /** id viewing a different profile */
                 id = user.id
@@ -24,19 +28,37 @@ class Payment{
             const agent = await profile.findOne({where:{id}})
 
             if (agent){
-                transactions = await transaction.findAll(
-
-                    agent.role  != "admin"? {where:{agent:id}}: {}
-                    )
+                transactions = await transaction.findAll( agent.role  != "admin"? {where:{agent:id}}: {})
                 delete agent['dataValues'].password
 
                 if(agent.role === 'admin'){
-                    let sold = 0
+                    let sold = 0, profits = 0, companyProfAdded =false;
                     profiles = await profile.findAll()
+
                     if(profiles.length > 0){
+                        // profiles.map(prof => {
+                        //     sold+=prof.balance;
+                        //     delete prof['dataValues'].password
+                        // })
                         profiles.map(prof => {
-                            sold+=prof.balance;
+                            if(prof.role === 'admin'){
+                                if(!companyProfAdded) {// addin company Profit once
+                                    companyProfAdded = true;
+                                    sold+=(prof.balance+prof.profit)
+                                }
+                            }  
+                            else{
+                                sold+=(prof.balance+prof.profit);
+                            }
+                            delete prof['dataValues'].password
+
                         })
+
+                        
+
+
+
+                        
                     }
                     /**
                      * get the company balance
@@ -84,15 +106,36 @@ class Payment{
                }
              })
 
-             console.log('balance==>',balData.data.balance)
-
-             return balData.data.balance
+             console.log(this.devBalance);
+             return process.env.NODE_ENV == 'production' ? balData.data.balance : this.devBalance
              
     }
 
     async topUp(req,res){
         try{
-        const {amount,user} = req.body
+        const  {amount,user} = req.body
+        let sold = 0;
+
+        let companyBal = await this.retrieveBal(),
+            profiles = await profile.findAll(),
+            companyProfAdded = false
+                    if(profiles.length > 0){
+                        profiles.map(prof => {
+                            if(prof.role === 'admin'){
+                                if(!companyProfAdded) {// addin company Profit once
+                                    companyProfAdded = true;
+                                    sold+=(prof.balance+prof.profit)
+                                }
+                            }  
+                            else{
+                                sold+=(prof.balance+prof.profit);
+                            }
+                            delete prof['dataValues'].password
+
+                        })
+                    }
+        companyBal-=sold
+
         /**
          * validate the account balance of the company by calling intouch pay API
          */
@@ -100,9 +143,18 @@ class Payment{
         /**
          * retrieve the agent
         */
+       console.log(Number(amount), companyBal)
+       console.log(sold)
+       if(Number(amount) > companyBal)
+            return res.json({status: 409, message: "No Funds"})
+
         const agent = await profile.findOne({where:{id:user}})
         if(!agent){
             return res.send({error:{message:'user not found',status:404}})
+        }
+
+        if(agent.role === 'admin'){
+            return res.send({error:{message:'can not sell to the admin',status:403}})
         }
         await profile.increment('balance',{by: amount, where:{id:user} })
         return res.status(200).send({message:'Successful'})

@@ -4,11 +4,12 @@
   "description": "A blueprint of easyhealth microservices",
   "main": "index.js",
   "scripts": {
-    "local": "sequelize db:migrate && ./node_modules/.bin/nodemon --exec babel-node src/index.js",
+    "local": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/nodemon --exec babel-node src/index.js",
     "test": "mocha --require @babel/register --require babel-polyfill --timeout 200000 --exit",
     "coverage": "nyc mocha --require @babel/register --require babel-polyfill --timeout 200000 --exit",
     "cov_on_html": "npx nyc report --reporter=html",
-    "seed": "npx sequelize db:seed:all"
+    "seed": "./node_modules/.bin/sequelize db:seed:all",
+    "start": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/nodemon --exec babel-node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "npx": "^10.2.2",
     "pg": "^8.3.0",
     "qs": "^6.9.4",
+    "redis": "^3.0.2",
     "sequelize": "^5.21.6",
     "sequelize-cli": "^5.5.1",
     "sha256": "^0.2.0",

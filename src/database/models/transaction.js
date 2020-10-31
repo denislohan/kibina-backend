@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     agent: DataTypes.INTEGER,
     referenceid: DataTypes.STRING,
     requesttransactionid: DataTypes.STRING,
-    transactionid: DataTypes.STRING
+    transactionid: DataTypes.STRING,
+    profit: DataTypes.DOUBLE,
+    companyProfit: DataTypes.DOUBLE
+
   }, {});
   transaction.associate = function(models) {
     // associations can be defined here

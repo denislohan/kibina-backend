@@ -4,6 +4,9 @@ import Payment from '../controllers/payment'
 import Auth from '../controllers/auth'
 import Account from '../controllers/account'
 import Transaction from '../controllers/transaction'
+import Rate from '../controllers/rate'
+
+
 
 
 import { signupValidate, signinValidate} from '../middlewares/validators/auth';
@@ -11,13 +14,16 @@ import { processValidate} from '../middlewares/validators/process';
 import validateToken from '../middlewares/validators/validateToken'
 import {isAdmin,isOwner} from '../middlewares/validators/access'
 import {topUpValidate} from '../middlewares/validators/account'
+import {rateValidate} from '../middlewares/validators/rate'
+
 
 const router = express.Router(),
     test = new Test(),
     payment = new Payment(),
     auth = new Auth(),
     account = new Account(),
-    transaction = new Transaction();
+    transaction = new Transaction(),
+    rate =  new Rate();
 
     /**
      * @swagger
@@ -206,5 +212,14 @@ const router = express.Router(),
      */ 
 
     router.get('/transactions',validateToken,transaction.retrieveAll)
+
+    router.patch('/rates',validateToken,rateValidate,rate.update)
+
+    // redeeming the profit
+    //router.patch('/rates',validateToken,rateValidate,rate.update)
+
+    router.get('/rates',validateToken,rate.findOne)
+
+
 
 export default router
