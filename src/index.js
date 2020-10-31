@@ -11,7 +11,7 @@ import models from './database/models'
 dotenv.config()
 const {rate} = models
 
-const redisClient = redis.createClient();
+const redisClient = redis.createClient(process.env.REDIS_URL);
 
 redisClient.on("error", function(error) {
   console.error('Redis failed to connect');
