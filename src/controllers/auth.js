@@ -41,6 +41,7 @@ const {profile} = models
 
     login(req,res){
         var authenticated
+        
         const {username,password} = req.body;
             if(!username || !password){
                 return res.json({"error":"Provide both username and password Please"})

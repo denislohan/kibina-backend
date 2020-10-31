@@ -26,6 +26,11 @@ module.exports = {
         defaultValue: 0
 
       },
+      profit: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+
+      },
       role: {
         type: Sequelize.STRING,
         defaultValue: "agent"

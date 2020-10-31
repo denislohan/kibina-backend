@@ -9,7 +9,6 @@ const db = {};
 
 console.log("configuration======>",process.env.NODE_ENV)
 let config = configurations()
-console.log("config======>",config)
 
 let sequelize;
 if (config.use_env_variable) {

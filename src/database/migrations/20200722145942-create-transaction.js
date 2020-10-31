@@ -29,6 +29,12 @@ module.exports = {
       transactionid: {
         type: Sequelize.STRING
       },
+      profit: {
+        type: Sequelize.DOUBLE
+      },
+      companyProfit: {
+        type: Sequelize.DOUBLE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
