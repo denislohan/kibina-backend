@@ -23,7 +23,7 @@ redisClient.on("connect", function(error) {
 
 //constants
 const app = express(),
-    PORT = process.env.auth_port,
+    PORT = process.env.PORT || 3002,
     basePath = '/api'
     
 //cross-origins
