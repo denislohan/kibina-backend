@@ -4,13 +4,25 @@ const {profile} = models;
 
 
 export default (server,chaiHttp,chai,expect) => {
+    let authUser =
+        {"username":"admin",
+        "password": "eaty6t1jkjka"
+    },
+    fakeAuthUser = {
+        "username":"admin",
+        "password": "eaty6t1jkjka5"
+    },
+    invaliduser = {
+        "user":"admin",
+        "password": "eaty6t1jkjka5"
+    }
+        
     describe('Integration test Controller: Auth',()=>{
         it('++: login should work with real credentials', async () => {
             const result = await chai
             .request(server)
             .post('/api/login')
-            .send({"username":"oli-moz@kibina.com",
-                    "password": "pekeyake12"});
+            .send(authUser);
             //currentToken = result.body.data.token;
             result.should.have.status(201);
             result.body.should.be.an('object');
@@ -20,8 +32,7 @@ export default (server,chaiHttp,chai,expect) => {
             const result = await chai
             .request(server)
             .post('/api/login')
-            .send({"username":"oli-moz@kibina.com",
-                    "password": "pekeyake2"});
+            .send(fakeAuthUser);
             result.body.should.be.an('object');
             expect(result.body.status).to.equal(401)
 
@@ -31,8 +42,7 @@ export default (server,chaiHttp,chai,expect) => {
             const result = await chai
             .request(server)
             .post('/api/login')
-            .send({"email":"oli-moz@kibina.com",
-                    "password": "pekeyake2"});
+            .send({invaliduser});
                     expect(result.body.status).to.equal(400)
         });
         
@@ -61,7 +71,7 @@ export default (server,chaiHttp,chai,expect) => {
             .request(server)
             .post('/api/signup')
             .send({
-                username: "titi",
+                username: "admin",
                 password: "mwanaumw76",
                 familyName:"Lohan",
                 firstName: "denis"

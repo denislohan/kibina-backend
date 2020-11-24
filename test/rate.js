@@ -1,4 +1,15 @@
 export default (server,chaiHttp,chai,expect) => {
+    let admin =
+        {
+            "username":"admin",
+            "password": "eaty6t1jkjka"
+        },
+        agent = 
+        {
+            "username":"agent",
+            "password": "eaty6t1jkjka"
+        }
+        
     describe("Rates Test Suite",()=>{
         it('--: Setting Rates should fail on no auth',async()=>{
             const result =  await chai
@@ -18,10 +29,7 @@ export default (server,chaiHttp,chai,expect) => {
             const result =  await chai
                 .request(server)
                 .post('/api/login')
-                .send({
-                    "username":"oli-moz@kibina.com",
-                    "password": "pekeyake12"
-                })
+                .send(admin)
                     .then( async (res) =>{
                         const result =  await chai
                         .request(server)
@@ -42,10 +50,7 @@ export default (server,chaiHttp,chai,expect) => {
             const result =  await chai
                 .request(server)
                 .post('/api/login')
-                .send({
-                    "username":"oli-moz@kibina.com",
-                    "password": "pekeyake12"
-                })
+                .send(agent)
                     .then( async (res) =>{
                         const result =  await chai
                         .request(server)
@@ -76,10 +81,7 @@ export default (server,chaiHttp,chai,expect) => {
             const result =  await chai
                 .request(server)
                 .post('/api/login')
-                .send({
-                    "username":"titi",
-                    "password": "pekeyake12"
-                })
+                .send(agent)
                     .then( async (res) =>{
                         const result =  await chai
                         .request(server)
