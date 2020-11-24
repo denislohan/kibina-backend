@@ -13,6 +13,10 @@ services:
 before_script:
   - yarn add sequelize-cli
   - psql -c 'CREATE database moz_pay_test;' -U postgres
+env:
+  global:
+  - test_pass=$2b$10$lWIE0LI8iLKOBgSGT7tbV.3yRVpG4TKCXCwpihRHYMhsKRnonDzoa
+  - JWTSK=testEncrypt
 script:
   - yarn test
 after_success:
