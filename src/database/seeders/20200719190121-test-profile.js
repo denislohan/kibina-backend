@@ -7,7 +7,7 @@ module.exports = {
       familyName: 'Admin',
       role:'admin',
       username: 'admin',
-      password:process.env.test_pass,
+      password:'$2b$10$lWIE0LI8iLKOBgSGT7tbV.3yRVpG4TKCXCwpihRHYMhsKRnonDzoa',
       balance:0,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -18,7 +18,7 @@ module.exports = {
       familyName: 'Agent',
       role:'agent',
       username: 'agent',
-      password:process.env.test_pass,
+      password:'$2b$10$lWIE0LI8iLKOBgSGT7tbV.3yRVpG4TKCXCwpihRHYMhsKRnonDzoa',
       balance:0,
       createdAt: new Date(),
       updatedAt: new Date()
