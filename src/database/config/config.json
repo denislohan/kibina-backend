@@ -9,7 +9,7 @@
   "test": {
     "username": "postgres",
     "password": null,
-    "database": "moz-pay_test",
+    "database": "moz_pay_test",
     "host": "localhost",
     "dialect": "postgres"
   }

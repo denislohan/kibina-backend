@@ -3,17 +3,23 @@ node_js:
   - "12"
 before_install:
   - yarn add sequelize-cli -g
+  - yarn add cross-env -g
 install:
   - yarn install
 services:
   - postgresql
   - redis
+
 before_script:
   - yarn add sequelize-cli
-  - psql -c 'CREATE database moz-pay_test;' -U postgres
+  - psql -c 'CREATE database moz_pay_test;' -U postgres
+env:
+  global:
+  - test_pass=$2b$10$lWIE0LI8iLKOBgSGT7tbV.3yRVpG4TKCXCwpihRHYMhsKRnonDzoa
+  - JWTSK=testEncrypt
 script:
   - yarn test
 after_success:
-  - yarn coverage coverage
+  - yarn coverage
 notifications:
   email: false
