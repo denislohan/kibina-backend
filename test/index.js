@@ -1,23 +1,26 @@
 import server from '../src'
 import chai,{expect} from 'chai'
 import chaiHttp from 'chai-http';
+import testAuthEndpoints from './auth'
+import testRateEndpoint from './rate'
+import testPaymentEndpoint from './rate'
+import testAccountEndpoint from './rate'
+import testRedeemEndpoint from './rate'
+import testTransactionEndpoint from './rate'
+
+
+
 
 
 chai.use(chaiHttp);
 chai.should();
-describe('Integration test Controller test',()=>{
+testAuthEndpoints(server,chaiHttp,chai,expect);
+testRateEndpoint(server,chaiHttp,chai,expect);
+// testPaymentEndpoint(server,chaiHttp,chai,expect);
+// testAccountEndpoint(server,chaiHttp,chai,expect);
+// testRateEndpoint(server,chaiHttp,chai,expect);
 
-    it('The service should be on', async () => {
-        const result = await chai
-          .request(server)
-          .get('/api/test')
-          .send({});
-        //currentToken = result.body.data.token;
-        result.should.have.status(200);
-        result.body.should.be.an('object');
-        result.body.status.should.be.an('string');
-        expect(result.body.status).to.equal('Service is On')
 
-      });
 
-})
+
+

@@ -85,7 +85,7 @@ const router = express.Router(),
      *          '200':
      *              description: Logged in Successfully
      */    
-    router.post('/login',auth.login)
+    router.post('/login',signinValidate,auth.login)
     /**
      * @swagger
      * /api/payment:
@@ -217,12 +217,11 @@ const router = express.Router(),
 
     router.get('/transactions',validateToken,transaction.retrieveAll)
 
-    router.patch('/rates',validateToken,rateValidate,rate.update)
+    router.patch('/rates',validateToken,isAdmin,rateValidate,rate.update)
 
     // redeeming the profit
     router.get('/rates',validateToken,rate.findOne)
     router.get('/redeem',validateToken,redeemValidate,redeem)
-
 
 
 

@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "12"
+before_install:
+  - yarn add sequelize-cli -g
+install:
+  - yarn install
+services:
+  - postgresql
+  - redis
+before_script:
+  - yarn add sequelize-cli
+  - psql -c 'CREATE database moz-pay_test;' -U postgres
+script:
+  - yarn test
+after_success:
+  - yarn coverage coverage
+notifications:
+  email: false
