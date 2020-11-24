@@ -3,22 +3,22 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('profiles', [{
-      firstName: 'General',
+      firstName: 'Test',
       familyName: 'Admin',
       role:'admin',
-      username: 'admin@fastpesa.com',
-      password:process.env.admin_seed_pass,
+      username: 'admin',
+      password:process.env.test_pass,
       balance:0,
       createdAt: new Date(),
       updatedAt: new Date()
     },
 
     {
-      firstName: 'General',
+      firstName: 'Tess',
       familyName: 'Agent',
       role:'agent',
       username: 'agent',
-      password:process.env.agent_seed_pass,
+      password:process.env.test_pass,
       balance:0,
       createdAt: new Date(),
       updatedAt: new Date()

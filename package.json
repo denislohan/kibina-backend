@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "local": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/nodemon --exec babel-node src/index.js",
-    "test": "yarn droptables:test && yarn createtables:test  &&cross-env NODE_ENV=test yarn seed && cross-env NODE_ENV=test  mocha --require @babel/register --require babel-polyfill --timeout 200000 --exit ",
+    "test": "yarn droptables:test && yarn createtables:test  &&cross-env NODE_ENV=test yarn seed:test && cross-env NODE_ENV=test  mocha --require @babel/register --require babel-polyfill --timeout 200000 --exit ",
     "createtables:test": "cross-env NODE_ENV=test sequelize db:migrate",
     "droptables:test": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
+    "seed:test": "./node_modules/.bin/sequelize db:seed --seed 20200719190121-test-profile ",
+
 
 
     "coverage": "yarn droptables:test && yarn createtables:test  &&cross-env NODE_ENV=test yarn seed && cross-env NODE_ENV=test  nyc mocha --require @babel/register --require babel-polyfill --timeout 200000 --exit",
