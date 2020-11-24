@@ -20,11 +20,11 @@ export default class Rate{
 
     }
     async update(req,res){
-        const {currency, companyFees, agentFees} =  req.body
+        const {currency, companyFees, agentFees,profitToRedeem} =  req.body
         let rates = await rate.findOne()
 
         if(rates)
-            rates.update({currency, companyFees, agentFees})
+            rates.update({currency, companyFees, agentFees,profitToRedeem})
                 .then(()=>{
                         res.json({status:200,message: "Updated successfuly"})
                 })

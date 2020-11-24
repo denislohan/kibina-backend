@@ -5,6 +5,8 @@ import Auth from '../controllers/auth'
 import Account from '../controllers/account'
 import Transaction from '../controllers/transaction'
 import Rate from '../controllers/rate'
+import redeem from '../controllers/redeem'
+
 
 
 
@@ -15,6 +17,8 @@ import validateToken from '../middlewares/validators/validateToken'
 import {isAdmin,isOwner} from '../middlewares/validators/access'
 import {topUpValidate} from '../middlewares/validators/account'
 import {rateValidate} from '../middlewares/validators/rate'
+import {redeemValidate} from '../middlewares/validators/redeem'
+
 
 
 const router = express.Router(),
@@ -216,9 +220,9 @@ const router = express.Router(),
     router.patch('/rates',validateToken,rateValidate,rate.update)
 
     // redeeming the profit
-    //router.patch('/rates',validateToken,rateValidate,rate.update)
-
     router.get('/rates',validateToken,rate.findOne)
+    router.get('/redeem',validateToken,redeemValidate,redeem)
+
 
 
 

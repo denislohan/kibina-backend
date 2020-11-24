@@ -12,14 +12,10 @@ const joiMessageFunction = (error, req, res, next) => {
   return next();
 };
 
-const rateValidate = (req, res, next) => {
+const redeemValidate = (req, res, next) => {
     const schema = Joi.object({
-        currency: Joi.number().required().min(0),
-        companyFees: Joi.number().required().min(0),
-        agentFees: Joi.number().required().min(0),
-        profitToRedeem: Joi.number().required().min(0),
-
-
+        amount: Joi.number().required().min(0),
+    
     });
     const { error } = schema.validate(req.body, {
       abortEarly: false
@@ -28,5 +24,5 @@ const rateValidate = (req, res, next) => {
   };
 
 export{
-    rateValidate,
+    redeemValidate,
 }

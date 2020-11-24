@@ -8,13 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      currency: {
+      currency: { // conversion rate MZN <> RWF
         type: Sequelize.DOUBLE
       },
-      companyFees: {
+      companyFees: {   //%
         type: Sequelize.DOUBLE
       },
-      agentFees: {
+      agentFees: { // %
+        type: Sequelize.DOUBLE
+      },
+      profitToRedeem: {  // folds(times) of collected profir
         type: Sequelize.DOUBLE
       },
       createdAt: {

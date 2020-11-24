@@ -3,6 +3,7 @@ import moment from 'moment'
 import sha from 'sha256'
 import axios from 'axios'
 import qs from 'qs'
+import eventEmitter from '../helpers/event'
 const {profile,transaction} = models
 class Payment{
     constructor(){
@@ -36,10 +37,6 @@ class Payment{
                     profiles = await profile.findAll()
 
                     if(profiles.length > 0){
-                        // profiles.map(prof => {
-                        //     sold+=prof.balance;
-                        //     delete prof['dataValues'].password
-                        // })
                         profiles.map(prof => {
                             if(prof.role === 'admin'){
                                 if(!companyProfAdded) {// addin company Profit once
@@ -106,7 +103,7 @@ class Payment{
                }
              })
 
-             console.log(this.devBalance);
+            //  console.log(this.devBalance);
              return process.env.NODE_ENV == 'production' ? balData.data.balance : this.devBalance
              
     }
@@ -120,6 +117,7 @@ class Payment{
             profiles = await profile.findAll(),
             companyProfAdded = false
                     if(profiles.length > 0){
+                        
                         profiles.map(prof => {
                             if(prof.role === 'admin'){
                                 if(!companyProfAdded) {// addin company Profit once
@@ -143,8 +141,7 @@ class Payment{
         /**
          * retrieve the agent
         */
-       console.log(Number(amount), companyBal)
-       console.log(sold)
+    
        if(Number(amount) > companyBal)
             return res.json({status: 409, message: "No Funds"})
 
@@ -157,7 +154,8 @@ class Payment{
             return res.send({error:{message:'can not sell to the admin',status:403}})
         }
         await profile.increment('balance',{by: amount, where:{id:user} })
-        return res.status(200).send({message:'Successful'})
+                eventEmitter.emit('topUp', {amount,user:user})
+        return res.status(200).send({status:200,message:'Successful'})
     }catch(e){
         return res.status(500).send({error:e})
     }

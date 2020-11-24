@@ -27,8 +27,8 @@ class TokenHelper {
    * @returns {string} The users's hashed password.
    */
   static decodeToken(token, sk) {
-    const isToken = jwt.verify(token, sk);
-    return isToken;
+    const userData = jwt.verify(token, sk);
+    return userData;
   }
 
   /**

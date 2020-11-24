@@ -47,7 +47,7 @@ class Payment{
           sendRate = 100 - (agentFees+companyFees),
           toSend = amount*sendRate/100,
           profit = amount*agentFees/100,
-          companyProfit = amount*companyFees/100
+          companyProfit = (amount*companyFees - 250) /100
 
         //return res.send({toSend,profit, companyProfit });
         //const pay = process.env.NODE_ENV == 'production' ?

@@ -7,6 +7,9 @@ import redis from 'redis'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import models from './database/models'
+import socket from "socket.io"
+
+import {io} from './helpers/socket'
 
 dotenv.config()
 const {rate} = models
@@ -55,10 +58,18 @@ app.get('**', (req, res) => {
   });
 });
 
-
 //starting the server
 var server = app.listen(PORT,()=>{
      console.log(`server running on port ${PORT}`)
 })
+
+io(socket(server,
+  {
+    cors: {
+      origin: "*"
+    }
+  }
+  ));
+// io(io_)
 
 export default server

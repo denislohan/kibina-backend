@@ -1,12 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const rate = sequelize.define('rate', {
-    currency: DataTypes.DOUBLE,
+  const profile = sequelize.define('rate', {
     companyFees: DataTypes.DOUBLE,
-    agentFees: DataTypes.DOUBLE
+    agentFees:  DataTypes.DOUBLE,
+    currency:  DataTypes.DOUBLE,
+    profitToRedeem: DataTypes.DOUBLE,
+    currency: DataTypes.DOUBLE,
   }, {});
-  rate.associate = function(models) {
+  profile.associate = function(models) {
     // associations can be defined here
   };
-  return rate;
+  return profile;
 };
