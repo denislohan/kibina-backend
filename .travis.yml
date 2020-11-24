@@ -3,6 +3,7 @@ node_js:
   - "12"
 before_install:
   - yarn add sequelize-cli -g
+  - yarn add cross-env -g
 install:
   - yarn install
 services:
@@ -10,7 +11,7 @@ services:
   - redis
 before_script:
   - yarn add sequelize-cli
-  - psql -c 'CREATE database moz-pay_test;' -U postgres
+  - psql -c 'CREATE database moz_pay_test;' -U postgres
 script:
   - yarn test
 after_success:
