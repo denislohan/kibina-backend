@@ -13,10 +13,10 @@ services:
 before_script:
   - yarn add sequelize-cli
   - psql -c 'CREATE database moz_pay_test;' -U postgres
-script:
-  - yarn test
 env:
   - test_pass=$2b$10$lWIE0LI8iLKOBgSGT7tbV.3yRVpG4TKCXCwpihRHYMhsKRnonDzoa
+script:
+  - yarn test
 after_success:
   - yarn coverage coverage
 notifications:
