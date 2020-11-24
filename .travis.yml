@@ -20,6 +20,6 @@ env:
 script:
   - yarn test
 after_success:
-  - yarn coverage coverage
+  - yarn coverage
 notifications:
   email: false
