@@ -28,7 +28,7 @@ const signupValidate = (req, res, next) => {
 
   const signinValidate = (req, res, next) => {
     const schema = Joi.object({
-      email: validationObj({ 'string.base': 'Invalid type, your email must be a string', 'string.empty': 'Please enter your email', 'string.email': 'Your email is invalid, please enter a valid email' }).email(),
+      username: validationObj({ 'string.base': 'Invalid type, your email must be a string', 'string.empty': 'Please enter your email', 'string.email': 'Your email is invalid, please enter a valid email' }),
       password: validationObj({ 'string.base': 'Invalid type, your password must be a string', 'string.min': 'password must be at least 8 characters long', 'string.empty': 'Please enter your password' }).min(8).alphanum().max(50),
     });
     const { error } = schema.validate(req.body, {

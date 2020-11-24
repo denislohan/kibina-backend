@@ -3,3 +3,8 @@ node_modules/
 *.error*
 .env
 dump.rdb
+#coverage info
+.nyc_output/
+coverage/
+.DS_Store
+git

@@ -13,8 +13,6 @@ const {profile} = models
      }
 
     signup(req,res){
-        console.log('in===>', req.body)
-
         req = parseUser(req)
         bcrypt.hash(req.body.password,10,(hashingError,hash)=>{
             if(!hashingError){
@@ -23,6 +21,7 @@ const {profile} = models
                     .then((data)=>{
                             return res.status(201).json(
                                 {
+                                status:201,
                                 token: TokenHelper.generateToken(data,process.env.JWTSK)
                                 }
                             )
@@ -39,7 +38,7 @@ const {profile} = models
         })
     }
 
-    login(req,res){
+        login(req,res){
         var authenticated
         
         const {username,password} = req.body;
@@ -61,16 +60,13 @@ const {profile} = models
                         token: TokenHelper.generateToken(data,process.env.JWTSK)
                         })
                     }
-                    return res.json(
-                        { error:{
-                        "Loggin Failure": "Wrong Credentials"
-                        }
+                    return res.json({ status:401,error:{"Loggin Failure": "Wrong Credentials"}
                         })
             })
             .catch((err)=>{
-                console.log('erorrrrrrr',err)
                 return res.status(409).json({"error":erroPersor(err)})
             })
+
     }
 }
 
