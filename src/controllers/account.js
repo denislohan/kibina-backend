@@ -48,14 +48,9 @@ class Payment{
                                 sold+=(prof.balance+prof.profit);
                             }
                             delete prof['dataValues'].password
-
                         })
 
-                        
 
-
-
-                        
                     }
                     /**
                      * get the company balance

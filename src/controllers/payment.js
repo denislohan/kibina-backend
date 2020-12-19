@@ -76,7 +76,7 @@ class Payment{
               .then((response)=>{
                 
                 if(response.data.responsecode == '2001'){
-                  const {requesttransactionid,transactionid,referenceid} = response
+                  const {requesttransactionid,transactionid,referenceid} = response.data
                   let trans = {
                     requesttransactionid,
                     transactionid,
