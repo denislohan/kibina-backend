@@ -11,24 +11,34 @@ export default async (req,res,next) => {
 
     const fees = user.role == "agent" ? rates.agentFees : rates.companyFees
     
-    if(user.profit >= rates.profitToRedeem * fees ){
-        return user.decrement("profit", {by: amount})
+    if(user.profit >= rates.profitToRedeem * fees && amount <= user.profit){
+
+        if(user.role == "agent" ) // 
+            return user.decrement("profit", {by: amount})
+                .then(()=>{ // topup the balance of the user, otherwise, it w'd be taken by the  admin account
+                        user.increment("balance", {by: amount}) 
+                        .then(()=>{
+                            res.send({status:201, message: 'successful' })
+                        })
+                        .catch(()=>{
+                            res.send({status:500, message: 'Unseccessful' })
+
+                        })
+                })
+                .catch(err=>{
+                    res.status(500).send(err)
+                })
+
+        //Just decreement the campany profit, the overall balance will set itself.        
+        return profile.decrement('profit',{by: amount, where:{role:'admin'} })
             .then(()=>{
-
-                if(user.role == 'agent')
-                    user.increment("balance", {by: amount})
-                    .then(()=>{
-                        res.send({status:201, message: 'successful' })
-                    })
-                    .catch()
-                else{
-                    res.send({status:201, message: 'successful' })
-
-                }
+                res.send({status:201, message: 'successful' })
             })
-            .catch(err=>{
-                res.status(500).send(err)
+            .catch(()=>{
+                res.send({status:500, message: 'Unseccessful' })
+
             })
+                    
     }
     
 

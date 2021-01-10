@@ -10,7 +10,7 @@ class Payment{
             this.retrieveBal = this.retrieveBal.bind(this)
             this.profile = this.profile.bind(this)
             this.topUp = this.topUp.bind(this)
-        
+
     }
     async profile(req,res){
        
@@ -49,8 +49,6 @@ class Payment{
                             }
                             delete prof['dataValues'].password
                         })
-
-
                     }
                     /**
                      * get the company balance
@@ -58,6 +56,8 @@ class Payment{
                      */
 
                     companyBal = await this.retrieveBal()
+                    console.log("bal====>", companyBal);
+
 
                     // this the balance that admin is allowed to sell to agents
                     agent.balance = (companyBal - sold).toFixed(2)
@@ -100,6 +100,8 @@ class Payment{
 
             //  console.log(this.devBalance);
              return process.env.NODE_ENV == 'production' ? balData.data.balance : this.devBalance
+             //return balData.data.balance 
+
              
     }
 
