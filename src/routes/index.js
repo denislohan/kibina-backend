@@ -192,7 +192,7 @@ const router = express.Router(),
      *          '404':
      *              description: User not found
      */ 
-    router.get('/profile/',validateToken,isAdmin,account.profile)
+    router.get('/profile/:id',validateToken,isAdmin,account.profile) 
     
     /**
      * @swagger
@@ -221,7 +221,7 @@ const router = express.Router(),
 
     // redeeming the profit
     router.get('/rates',validateToken,rate.findOne)
-    router.get('/redeem',validateToken,redeemValidate,redeem)
+    router.get('/redeem',validateToken,redeemValidate,redeem) // can add query; ?user=x
 
 
 
