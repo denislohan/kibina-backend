@@ -155,7 +155,7 @@ class Payment{
 
                 }
                 else{
-                  response.requestId = requesttransactionid
+                  response.requestId = 'requesttransactionid'
                   return res.send(response.data);
                   
                 }
