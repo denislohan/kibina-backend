@@ -47,8 +47,7 @@ class Payment{
           sendRate = 100 - (agentFees+companyFees),
           toSend = amount*sendRate/100,
           profit = amount*agentFees/100,
-          companyProfit = ((amount*companyFees) /100) - 250,
-          requesttransactionid = Math.floor(Math.random()*90000) + 10000
+          companyProfit = ((amount*companyFees) /100) - 250
 
         //return res.send({toSend,profit, companyProfit });
         //const pay = process.env.NODE_ENV == 'production' ?
@@ -64,10 +63,10 @@ class Payment{
                     amount:Number(''+toSend),
                     withdrawcharge: 0,
                     reason: "Kibina Payment",
-                    sid: "3",
+                    sid: "1",
                     password,
                     mobilephone: Number('25'+receiver),
-                    requesttransactionid
+                    requesttransactionid: Math.floor(Math.random()*90000) + 10000
                 }),
                 headers: {
                   'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -155,7 +154,6 @@ class Payment{
 
                 }
                 else{
-                  response.requestId = 'requesttransactionid'
                   return res.send(response.data);
                   
                 }
