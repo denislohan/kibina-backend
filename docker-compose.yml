@@ -1,12 +1,12 @@
 version: '3.0'
 services:
   # Node application to manage user related auth and profiles.
-  kibina:
+  kibina: #backend express/node server
     build:
       context: .
       args:
         - PORT=${auth_port}
-    ports: 
+    ports:  #port mapping
       - ${auth_port}:${auth_port}
     restart: always
     environment: 
@@ -19,6 +19,7 @@ services:
       - DB_HOST=db
     depends_on:
       - db
+
   # react:
   #   build:
   #     context: ../frontend
@@ -29,7 +30,7 @@ services:
 
   #Postress database for the entire application 
   #might need to be replicated to an other standalone Postgres server in the future.
-  db:
+  db: #postgress database
     image: postgres
     restart: always
     volumes: 

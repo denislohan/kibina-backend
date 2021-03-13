@@ -10,11 +10,23 @@ const config = () => {
         environment.database = process.env.POSTGRES_DB
         environment.host = process.env.DB_HOST
         environment.dialect = process.env.DB_DIALECT
+        environment.dialectOptions= {
+          ssl: {      /* <----- Add SSL option */
+            require: true,
+            rejectUnauthorized: false 
+          }
+        }
       }
 
       else if(envVar === 'production'){
         environment.use_env_variable="DATABASE_URL",
-        environment.dialect='postgres'
+        environment.dialect='postgres',
+        environment.dialectOptions= {
+          ssl: {      /* <----- Add SSL option */
+            require: true,
+            rejectUnauthorized: false 
+          }
+        }
       }
 
       else 
