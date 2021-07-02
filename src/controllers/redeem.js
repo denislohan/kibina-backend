@@ -8,6 +8,7 @@ export default async (req,res,next) => {
     const userId =  req.user.id
     let reedemer =  req.query.user
 
+    try{
 
     const rates =  await rate.findOne();
     let user =  await profile.findOne({where: {id:userId}})
@@ -54,6 +55,11 @@ export default async (req,res,next) => {
     
 
     res.json({status: 402, message:"insufficient Profits"})
+}catch(e){
+
+    res.send(e)
+
+}
 
 
 }
